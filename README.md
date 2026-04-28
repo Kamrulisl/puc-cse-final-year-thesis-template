@@ -11,31 +11,30 @@ This template was adapted and reviewed from:
 - Original PUC report template by Anik Sen: <https://github.com/ascuet/puc-report-template>
 - Modified PUC CSE thesis template by Dhruba Dey: <https://github.com/dhrubad/Thesis_Paper_Latex>
 
-## Setup Instructions
+## Easy Setup
 
-Install a LaTeX distribution and tools that provide:
+You only need three things:
 
-- `pdflatex`
-- `latexmk`
-- `bibtex`
-
-Also install:
-
-- VS Code: <https://code.visualstudio.com/>
-- LaTeX Workshop extension for VS Code
+- A LaTeX distribution
+- VS Code
+- The LaTeX Workshop extension for VS Code
 
 This project already includes `.vscode/settings.json`, so LaTeX Workshop will
-compile using the project recipe.
+compile using the project recipe. The final PDF will be created as `main.pdf`,
+and temporary files will stay inside `build/`.
 
 ### Windows
 
 1. Install MiKTeX: <https://miktex.org/download>
-2. Install Strawberry Perl, needed by `latexmk`: <https://strawberryperl.com/>
+2. Install Strawberry Perl: <https://strawberryperl.com/>
 3. Install VS Code.
-4. Install the LaTeX Workshop extension in VS Code.
+4. Open VS Code and install the LaTeX Workshop extension.
 5. Open MiKTeX Console and allow missing packages to be installed automatically.
 6. Open this project folder in VS Code.
-7. Open `main.tex` and build using LaTeX Workshop, or use a terminal:
+7. Open `main.tex`.
+8. Press `Ctrl + S` or run the LaTeX Workshop build command.
+
+Terminal build command:
 
 ```sh
 latexmk -pdf -outdir=. -auxdir=build main.tex
@@ -48,9 +47,12 @@ Perl to your system `PATH`.
 
 1. Install MacTeX: <https://tug.org/mactex/>
 2. Install VS Code.
-3. Install the LaTeX Workshop extension in VS Code.
+3. Open VS Code and install the LaTeX Workshop extension.
 4. Open this project folder in VS Code.
-5. Build `main.tex` using LaTeX Workshop, or use Terminal:
+5. Open `main.tex`.
+6. Press `Cmd + S` or run the LaTeX Workshop build command.
+
+Terminal build command:
 
 ```sh
 make
@@ -64,15 +66,21 @@ latexmk -pdf -outdir=. -auxdir=build main.tex
 
 ### Linux
 
-On Ubuntu/Debian, install:
+On Ubuntu/Debian:
 
 ```sh
 sudo apt-get install texlive-latex-base texlive-latex-extra texlive-fonts-recommended latexmk
 ```
 
-Then install VS Code and the LaTeX Workshop extension.
+Then:
 
-Build from terminal:
+1. Install VS Code.
+2. Install the LaTeX Workshop extension.
+3. Open this project folder in VS Code.
+4. Open `main.tex`.
+5. Press `Ctrl + S` or run the terminal build command.
+
+Terminal build command:
 
 ```sh
 make
@@ -80,7 +88,13 @@ make
 
 ## Quick Start
 
-Open this folder in VS Code, then compile `main.tex`.
+1. Open `main.tex`.
+2. Update thesis title, authors, supervisor, chairman, and submission month.
+3. Open `abstract.tex` and write your abstract.
+4. Write each chapter inside the `chapters/` folder.
+5. Put figures inside the `figures/` folder.
+6. Add references inside `references.bib`.
+7. Build the PDF.
 
 From terminal:
 
@@ -102,6 +116,216 @@ build/
 
 That means files like `.aux`, `.bbl`, `.blg`, `.log`, `.toc`, `.lof`, `.lot`,
 `.out`, `.fls`, and `.fdb_latexmk` should not clutter the root folder.
+
+## First Edit Checklist
+
+Start with these files in this order:
+
+1. `main.tex`: update title, author names, IDs, supervisor, chairman, and date.
+2. `title_page.tex`: check whether the title page wording looks correct.
+3. `abstract.tex`: write the abstract and keywords.
+4. `dedication.tex`: update or remove the dedication text.
+5. `chapters/introduction.tex`: start writing Chapter 1.
+6. `references.bib`: add your references.
+7. `figures/`: add images and diagrams.
+
+After each major edit, run:
+
+```sh
+make
+```
+
+## How LaTeX Works
+
+LaTeX is not like Microsoft Word. You write plain text with commands, then LaTeX
+compiles that source into a polished PDF.
+
+The basic flow is:
+
+```text
+.tex source files + figures + references.bib
+                  |
+                  v
+              LaTeX build
+                  |
+                  v
+              final PDF
+```
+
+In this project:
+
+- `main.tex` controls the full document.
+- `thesis.sty` controls formatting.
+- `title_page.tex`, `abstract.tex`, `signature.tex`, and other root `.tex` files
+  control front matter pages.
+- `chapters/*.tex` files contain the main thesis writing.
+- `references.bib` stores bibliography information.
+- `figures/` stores images.
+- `build/` stores temporary build files.
+
+You normally edit only:
+
+- `main.tex`
+- `abstract.tex`
+- files inside `chapters/`
+- `references.bib`
+- images inside `figures/`
+
+Avoid editing generated files inside `build/`.
+
+## Basic LaTeX Writing Guide
+
+### Headings
+
+Use headings to structure your thesis:
+
+```tex
+\chapter{Introduction}
+\section{Background}
+\subsection{Motivation}
+```
+
+In this template, chapter titles are already written in `main.tex`, so inside
+chapter files you usually start with `\section{...}`.
+
+### Paragraphs
+
+Write normal text directly:
+
+```tex
+Intrusion detection is an important task in network security.
+This thesis studies machine learning based detection methods.
+```
+
+Leave a blank line to start a new paragraph:
+
+```tex
+This is the first paragraph.
+
+This is the second paragraph.
+```
+
+### Bold, Italic, And Inline Code
+
+```tex
+\textbf{bold text}
+\textit{italic text}
+\texttt{code or command}
+```
+
+### Lists
+
+Bullet list:
+
+```tex
+\begin{itemize}
+  \item First point
+  \item Second point
+\end{itemize}
+```
+
+Numbered list:
+
+```tex
+\begin{enumerate}
+  \item First step
+  \item Second step
+\end{enumerate}
+```
+
+### Figures
+
+Put image files inside `figures/`, then use:
+
+```tex
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/resultsfigures/example.png}
+  \caption{Example result}
+  \label{fig:example-result}
+\end{figure}
+```
+
+Reference it in text:
+
+```tex
+Figure~\ref{fig:example-result} shows the result.
+```
+
+### Tables
+
+```tex
+\begin{table}[H]
+  \centering
+  \caption{Example table}
+  \label{tab:example}
+  \begin{tabular}{ll}
+    \toprule
+    Item & Value \\
+    \midrule
+    Accuracy & 95\% \\
+    Loss & 0.12 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+```
+
+Reference it in text:
+
+```tex
+Table~\ref{tab:example} summarizes the results.
+```
+
+### Equations
+
+Inline equation:
+
+```tex
+The accuracy is calculated as $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$.
+```
+
+Displayed equation:
+
+```tex
+\begin{equation}
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
+```
+
+### Citations
+
+Add a reference in `references.bib`:
+
+```bibtex
+@article{smith2024ids,
+  author  = {Smith, John},
+  title   = {Intrusion Detection Using Machine Learning},
+  journal = {Example Journal},
+  year    = {2024}
+}
+```
+
+Cite it in a chapter:
+
+```tex
+Machine learning has been widely used for intrusion detection \cite{smith2024ids}.
+```
+
+Then run:
+
+```sh
+make
+```
+
+### Comments
+
+Comments are ignored by LaTeX:
+
+```tex
+% This line will not appear in the PDF.
+```
+
+Use comments to leave notes for yourself.
 
 ## Useful Commands
 
