@@ -2,32 +2,81 @@
 
 This is a three-member thesis/report LaTeX setup for the Department of Computer
 Science & Engineering, Premier University, Chattogram. It is based on the PUC
-template style and includes a cleaner local build setup for Linux/VS Code.
+template style and includes a cleaner local build setup for VS Code.
 
-Credit: adapted from the original PUC report template by Anik Sen and reviewed
-against `dhrubad/Thesis_Paper_Latex`.
+## Credits And References
 
-## Requirements
+This template was adapted and reviewed from:
 
-Install a LaTeX distribution that provides:
+- Original PUC report template by Anik Sen: <https://github.com/ascuet/puc-report-template>
+- Modified PUC CSE thesis template by Dhruba Dey: <https://github.com/dhrubad/Thesis_Paper_Latex>
+
+## Setup Instructions
+
+Install a LaTeX distribution and tools that provide:
 
 - `pdflatex`
 - `latexmk`
 - `bibtex`
 
-On Ubuntu/Debian, a typical setup is:
+Also install:
+
+- VS Code: <https://code.visualstudio.com/>
+- LaTeX Workshop extension for VS Code
+
+This project already includes `.vscode/settings.json`, so LaTeX Workshop will
+compile using the project recipe.
+
+### Windows
+
+1. Install MiKTeX: <https://miktex.org/download>
+2. Install Strawberry Perl, needed by `latexmk`: <https://strawberryperl.com/>
+3. Install VS Code.
+4. Install the LaTeX Workshop extension in VS Code.
+5. Open MiKTeX Console and allow missing packages to be installed automatically.
+6. Open this project folder in VS Code.
+7. Open `main.tex` and build using LaTeX Workshop, or use a terminal:
+
+```sh
+latexmk -pdf -outdir=. -auxdir=build main.tex
+```
+
+If `latexmk` is not recognized, restart VS Code or add MiKTeX and Strawberry
+Perl to your system `PATH`.
+
+### macOS
+
+1. Install MacTeX: <https://tug.org/mactex/>
+2. Install VS Code.
+3. Install the LaTeX Workshop extension in VS Code.
+4. Open this project folder in VS Code.
+5. Build `main.tex` using LaTeX Workshop, or use Terminal:
+
+```sh
+make
+```
+
+If `make` is unavailable, use:
+
+```sh
+latexmk -pdf -outdir=. -auxdir=build main.tex
+```
+
+### Linux
+
+On Ubuntu/Debian, install:
 
 ```sh
 sudo apt-get install texlive-latex-base texlive-latex-extra texlive-fonts-recommended latexmk
 ```
 
-For VS Code, install:
+Then install VS Code and the LaTeX Workshop extension.
 
-- VS Code
-- LaTeX Workshop extension
+Build from terminal:
 
-This project already includes `.vscode/settings.json`, so LaTeX Workshop will
-compile using the project recipe.
+```sh
+make
+```
 
 ## Quick Start
 
