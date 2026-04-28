@@ -1,0 +1,111 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{titling}
+\usepackage{thesis}
+\usepackage{subfig}
+\usepackage[tableposition=top]{caption}
+\usepackage{tabularx}
+\usepackage{placeins}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage[Glenn]{fncychap}
+\usepackage{hyperref}
+
+\captionsetup{
+  justification=justified,
+  singlelinecheck=false,
+  font=normalfont,
+  labelfont=bf,
+  labelsep=period
+}
+
+\newcommand{\department}{Department of Computer Science \& Engineering}
+\newcommand{\university}{Premier University, Chattogram}
+
+\newcommand{\chairmanName}{Prof. Dr. Shahid Md. Asif Iqbal}
+\newcommand{\chairmanDesignation}{Professor\\Chairman\\Associate Dean, Faculty of Engineering}
+
+\newcommand{\supervisorName}{Supervisor Name}
+\newcommand{\supervisorDesignation}{Supervisor Designation}
+
+\newcommand{\firstAuthorName}{Your Name}
+\newcommand{\firstAuthorId}{Your ID}
+\newcommand{\secondAuthorName}{Second Author Name}
+\newcommand{\secondAuthorId}{Second Author ID}
+\newcommand{\thirdAuthorName}{Third Author Name}
+\newcommand{\thirdAuthorId}{Third Author ID}
+
+\newcommand{\projectTitle}{Your Thesis Title}
+\newcommand{\submissionMonth}{April, 2026}
+
+\hypersetup{
+  colorlinks=true,
+  linktocpage=true,
+  linkcolor=black,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={\projectTitle},
+  pdfauthor={\firstAuthorName}
+}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\include{title_page}
+\clearpage
+\pagenumbering{roman}
+
+\include{author_declaration}
+\clearpage
+
+\include{signature}
+\clearpage
+
+\input{dedication}
+\clearpage
+
+\renewcommand{\contentsname}{Table of Contents}
+\tableofcontents
+\clearpage
+
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\clearpage
+
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\clearpage
+
+\input{abstract}
+\clearpage
+
+\pagenumbering{arabic}
+
+\chapter{Introduction}\label{chapter:introduction}
+\input{chapters/introduction}
+
+\chapter{Literature Review}
+\input{chapters/literature_review}
+
+\chapter{Methodology/Proposed Method/Workflow}
+\input{chapters/methodology}
+
+\chapter{Experimental Results and Discussion}
+\input{chapters/results}
+
+\chapter{Conclusion}
+\input{chapters/conclusion}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{references}
+
+\appendix
+\input{appendices/appendix-a}
+
+\end{document}
