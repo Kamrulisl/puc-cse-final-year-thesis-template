@@ -1,0 +1,334 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\defaultfontfeatures{Ligatures=TeX,Renderer=HarfBuzz}
+\setmainfont{Latin Modern Roman}
+\setmonofont{FreeSerif}
+\newfontfamily\banglafont[
+  Renderer=HarfBuzz
+]{FreeSerif}
+\newfontfamily\banglasans[
+  Script=Bengali,
+  Renderer=HarfBuzz
+]{Noto Sans Bengali}
+\newfontfamily\banglamono[
+  Script=Bengali,
+  Renderer=HarfBuzz
+]{Noto Sans Bengali}
+
+\newcommand{\bn}[1]{{\normalfont\banglafont #1}}
+\newcommand{\bnsf}[1]{{\normalfont\banglasans #1}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue
+}
+
+\title{\bn{LaTeX Basic Command Guide}}
+\author{\bn{বাংলা ব্যাখ্যাসহ}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{\bn{LaTeX কীভাবে কাজ করে}}
+
+\bn{LaTeX হলো একটি document preparation system. এখানে Microsoft Word-এর মতো
+সরাসরি ডিজাইন না করে আপনি source code লিখেন। তারপর LaTeX সেই code compile করে
+একটি সুন্দর PDF বানায়।}
+
+\begin{center}
+\bn{.tex file + image + bibliography} $\rightarrow$ \bn{compile} $\rightarrow$ \bn{PDF}
+\end{center}
+
+\bn{সাধারণভাবে কাজ করার ধাপ:}
+
+\begin{enumerate}
+  \item \bn{একটি `.tex` file-এ লেখা লিখুন।}
+  \item \bn{প্রয়োজন হলে image `figures/` folder-এ রাখুন।}
+  \item \bn{reference থাকলে `references.bib` file-এ দিন।}
+  \item \bn{compile করুন।}
+  \item \bn{শেষে PDF দেখুন।}
+\end{enumerate}
+
+\section{\bn{Command Syntax}}
+
+\bn{LaTeX command সাধারণত backslash দিয়ে শুরু হয়।}
+
+\begin{verbatim}
+\command{required value}
+\command[optional value]{required value}
+\end{verbatim}
+
+\bn{উদাহরণ:}
+
+\begin{verbatim}
+\textbf{This text is bold}
+\includegraphics[width=0.8\textwidth]{figures/image.png}
+\end{verbatim}
+
+\bn{এখানে curly braces `{}`-এর ভিতরের অংশ mandatory বা required value।
+Square brackets `[]`-এর ভিতরের অংশ optional setting।}
+
+\section{\bn{Environment Syntax}}
+
+\bn{অনেক LaTeX structure environment দিয়ে লেখা হয়। Environment-এর শুরুতে
+`\textbackslash begin\{...\}` এবং শেষে `\textbackslash end\{...\}` দিতে হয়।}
+
+\begin{verbatim}
+\begin{center}
+  This text is centered.
+\end{center}
+\end{verbatim}
+
+\bn{যে environment শুরু করবেন, একই environment শেষ করতেই হবে।}
+
+\section{\bn{Special Character}}
+
+\bn{কিছু character LaTeX-এ special meaning রাখে। এগুলো normal text হিসেবে
+লিখতে চাইলে escape করতে হয়।}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\bn{লিখতে চাইলে} & \bn{LaTeX code} \\
+\midrule
+\% & \verb|\%| \\
+\& & \verb|\&| \\
+\_ & \verb|\_| \\
+\# & \verb|\#| \\
+\$ & \verb|\$| \\
+\{ & \verb|\{| \\
+\} & \verb|\}| \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bn{উদাহরণ:}
+
+\begin{verbatim}
+The model achieved 95\% accuracy.
+Computer Science \& Engineering
+student\_id
+\end{verbatim}
+
+\section{\bn{Heading বা Section}}
+
+\bn{Document structure তৈরি করতে heading ব্যবহার করা হয়।}
+
+\begin{verbatim}
+\chapter{Introduction}
+\section{Background}
+\subsection{Motivation}
+\subsubsection{Dataset Details}
+\end{verbatim}
+
+\bn{Thesis template-এ chapter সাধারণত `main.tex` file-এ থাকে। তাই chapter file-এর
+ভিতরে সাধারণত `\textbackslash section\{...\}` দিয়ে শুরু করলেই যথেষ্ট।}
+
+\section{\bn{Paragraph এবং Line Break}}
+
+\bn{সাধারণ লেখা সরাসরি লিখলেই হয়।}
+
+\begin{verbatim}
+Intrusion detection is an important task in network security.
+This thesis studies machine learning based detection methods.
+\end{verbatim}
+
+\bn{নতুন paragraph শুরু করতে একটি blank line দিন।}
+
+\begin{verbatim}
+This is the first paragraph.
+
+This is the second paragraph.
+\end{verbatim}
+
+\bn{Manual line break দরকার হলে `\textbackslash\textbackslash` ব্যবহার করুন।}
+
+\begin{verbatim}
+First line\\
+Second line
+\end{verbatim}
+
+\section{\bn{Text Formatting}}
+
+\begin{verbatim}
+\textbf{bold text}
+\textit{italic text}
+\underline{underlined text}
+\texttt{monospace code text}
+\end{verbatim}
+
+\bn{উদাহরণ:}
+
+\begin{verbatim}
+\textbf{CNN} is used for feature extraction.
+\end{verbatim}
+
+\section{\bn{List}}
+
+\bn{Bullet list:}
+
+\begin{verbatim}
+\begin{itemize}
+  \item First point
+  \item Second point
+\end{itemize}
+\end{verbatim}
+
+\bn{Numbered list:}
+
+\begin{verbatim}
+\begin{enumerate}
+  \item Collect dataset
+  \item Preprocess data
+  \item Train model
+\end{enumerate}
+\end{verbatim}
+
+\section{\bn{Figure Add করা}}
+
+\bn{Image আগে project-এর `figures/` folder-এ রাখুন। তারপর:}
+
+\begin{verbatim}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/resultsfigures/example.png}
+  \caption{Example result}
+  \label{fig:example-result}
+\end{figure}
+\end{verbatim}
+
+\bn{Figure reference করতে:}
+
+\begin{verbatim}
+Figure~\ref{fig:example-result} shows the result.
+\end{verbatim}
+
+\bn{`\textbackslash label\{...\}` হলো reference key. একই key দিয়ে
+`\textbackslash ref\{...\}` করলে figure number পাওয়া যায়।}
+
+\section{\bn{Table Add করা}}
+
+\begin{verbatim}
+\begin{table}[H]
+  \centering
+  \caption{Example table}
+  \label{tab:example}
+  \begin{tabular}{ll}
+    \toprule
+    Item & Value \\
+    \midrule
+    Accuracy & 95\% \\
+    Loss & 0.12 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{verbatim}
+
+\bn{Column format:}
+
+\begin{itemize}
+  \item \code{\{ll\}} \bn{মানে দুইটি left aligned column}
+  \item \code{\{lc\}} \bn{মানে first column left, second column center}
+  \item \code{\{lcr\}} \bn{মানে left, center, right}
+\end{itemize}
+
+\section{\bn{Equation}}
+
+\bn{Inline equation:}
+
+\begin{verbatim}
+Accuracy is calculated as $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$.
+\end{verbatim}
+
+\bn{Displayed equation:}
+
+\begin{verbatim}
+\begin{equation}
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
+\end{verbatim}
+
+\bn{Equation label সহ:}
+
+\begin{verbatim}
+\begin{equation}
+F1 = \frac{2 \times \mathrm{Precision} \times \mathrm{Recall}}
+{\mathrm{Precision} + \mathrm{Recall}}
+\label{eq:f1-score}
+\end{equation}
+\end{verbatim}
+
+\section{\bn{Citation}}
+
+\bn{Reference আগে `references.bib` file-এ add করতে হয়।}
+
+\begin{verbatim}
+@article{smith2024ids,
+  author  = {Smith, John},
+  title   = {Intrusion Detection Using Machine Learning},
+  journal = {Example Journal},
+  year    = {2024}
+}
+\end{verbatim}
+
+\bn{Chapter file-এ cite করতে:}
+
+\begin{verbatim}
+Machine learning has been widely used for IDS \cite{smith2024ids}.
+\end{verbatim}
+
+\bn{Multiple citation:}
+
+\begin{verbatim}
+Several studies explored IDS using deep learning \cite{smith2024ids,doe2023cnn}.
+\end{verbatim}
+
+\section{\bn{Comment}}
+
+\bn{Percent sign `\%` দিয়ে comment লেখা হয়। Comment PDF-এ দেখাবে না।}
+
+\begin{verbatim}
+% This line will not appear in the PDF.
+This line will appear in the PDF.
+\end{verbatim}
+
+\section{\bn{Bangla লেখার নিয়ম}}
+
+\bn{এই file compile করতে LuaLaTeX ব্যবহার করুন। বাংলা লিখতে এই file-এ
+`\textbackslash bn\{...\}` command ব্যবহার করা হয়েছে।}
+
+\begin{verbatim}
+\bn{এখানে বাংলা লিখুন}
+\end{verbatim}
+
+\bn{বাংলা + English একসাথে লেখা যায়:}
+
+\begin{verbatim}
+\bn{এটি বাংলা লেখা।} This is English text.
+\end{verbatim}
+
+\section{\bn{Compile Command}}
+
+\bn{এই file compile করতে `la-tex basic` folder-এ গিয়ে চালান:}
+
+\begin{verbatim}
+make
+\end{verbatim}
+
+\bn{Bangla font ঠিকমতো না এলে `Noto Serif Bengali` এবং `Noto Sans Bengali`
+install আছে কিনা check করুন।}
+
+\end{document}

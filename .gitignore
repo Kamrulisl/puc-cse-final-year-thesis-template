@@ -1,4 +1,5 @@
 build/
+.texlive-cache/
 .codex
 *.aux
 *.bbl

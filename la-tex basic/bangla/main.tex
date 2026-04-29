@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+
+\defaultfontfeatures{Ligatures=TeX,Renderer=HarfBuzz}
+\setmainfont{Latin Modern Roman}
+\setmonofont{FreeSerif}
+\newfontfamily\banglafont[
+  Script=Bengali,
+  Renderer=HarfBuzz
+]{Noto Serif Bengali}
+\newfontfamily\banglasans[
+  Script=Bengali,
+  Renderer=HarfBuzz
+]{Noto Sans Bengali}
+
+\newcommand{\bn}[1]{{\normalfont\banglafont #1}}
+\newcommand{\bnsf}[1]{{\normalfont\banglasans #1}}
+
+\title{Bangla LaTeX Starter}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{English}
+This folder is configured for LuaLaTeX with Bangla font support.
+
+\section*{Bangla Example}
+\bn{এটি একটি বাংলা উদাহরণ। এখানে আপনি সহজে বাংলা লিখতে পারবেন।}
+
+\section*{Mixed Text}
+\bn{আপনি একই ডকুমেন্টে বাংলা ব্যবহার করতে পারবেন।}
+You can also write English in the same document.
+
+\section*{How to Write Bangla}
+Use \texttt{\textbackslash bn\{...\}} for Bangla serif text.
+
+Example:
+
+\begin{verbatim}
+\bn{এখানে বাংলা লিখুন}
+\end{verbatim}
+
+\bn{উদাহরণ: আমার বাংলা লেখা}
+
+\bnsf{এটি স্যান্স বাংলা ফন্টে লেখা।}
+
+\end{document}
