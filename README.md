@@ -173,22 +173,71 @@ You normally edit only:
 
 Avoid editing generated files inside `build/`.
 
-## Basic LaTeX Writing Guide
+## Basic LaTeX Syntax Guide
+
+LaTeX commands usually start with a backslash:
+
+```tex
+\command{required value}
+\command[optional value]{required value}
+```
+
+Examples:
+
+```tex
+\textbf{This text is bold.}
+\includegraphics[width=0.8\textwidth]{figures/example.png}
+```
+
+Curly braces `{}` contain required content. Square brackets `[]` contain optional
+settings. Environments start with `\begin{name}` and end with `\end{name}`:
+
+```tex
+\begin{center}
+  This text is centered.
+\end{center}
+```
+
+### Special Characters
+
+Some characters have special meaning in LaTeX. If you want to print them as
+normal text, write them like this:
+
+```tex
+\%
+\&
+\_
+\#
+\$
+```
+
+For example:
+
+```tex
+The model achieved 95\% accuracy.
+Computer Science \& Engineering
+student\_id
+```
 
 ### Headings
 
-Use headings to structure your thesis:
+Use headings to structure the document:
 
 ```tex
 \chapter{Introduction}
 \section{Background}
 \subsection{Motivation}
+\subsubsection{Dataset Details}
 ```
 
-In this template, chapter titles are already written in `main.tex`, so inside
-chapter files you usually start with `\section{...}`.
+In this template, chapter titles are already written in `main.tex`. So inside
+files like `chapters/introduction.tex`, you normally start with:
 
-### Paragraphs
+```tex
+\section{Background}
+```
+
+### Paragraphs And Line Breaks
 
 Write normal text directly:
 
@@ -197,7 +246,7 @@ Intrusion detection is an important task in network security.
 This thesis studies machine learning based detection methods.
 ```
 
-Leave a blank line to start a new paragraph:
+Leave one blank line to start a new paragraph:
 
 ```tex
 This is the first paragraph.
@@ -205,12 +254,26 @@ This is the first paragraph.
 This is the second paragraph.
 ```
 
-### Bold, Italic, And Inline Code
+Use `\\` only when you really need a manual line break:
+
+```tex
+First line\\
+Second line
+```
+
+### Text Formatting
 
 ```tex
 \textbf{bold text}
 \textit{italic text}
-\texttt{code or command}
+\underline{underlined text}
+\texttt{monospace code text}
+```
+
+Example:
+
+```tex
+\textbf{CNN} is used for feature extraction.
 ```
 
 ### Lists
@@ -221,6 +284,7 @@ Bullet list:
 \begin{itemize}
   \item First point
   \item Second point
+  \item Third point
 \end{itemize}
 ```
 
@@ -228,14 +292,15 @@ Numbered list:
 
 ```tex
 \begin{enumerate}
-  \item First step
-  \item Second step
+  \item Collect dataset
+  \item Preprocess data
+  \item Train model
 \end{enumerate}
 ```
 
 ### Figures
 
-Put image files inside `figures/`, then use:
+Put image files inside `figures/`. Then add the figure like this:
 
 ```tex
 \begin{figure}[H]
@@ -246,13 +311,23 @@ Put image files inside `figures/`, then use:
 \end{figure}
 ```
 
-Reference it in text:
+Meaning:
+
+- `[H]` tries to place the figure exactly here.
+- `\centering` centers the figure.
+- `width=0.8\textwidth` makes the image 80% of text width.
+- `\caption{...}` adds the figure caption.
+- `\label{...}` creates a reference key.
+
+Reference the figure in text:
 
 ```tex
 Figure~\ref{fig:example-result} shows the result.
 ```
 
 ### Tables
+
+Basic table:
 
 ```tex
 \begin{table}[H]
@@ -270,7 +345,13 @@ Figure~\ref{fig:example-result} shows the result.
 \end{table}
 ```
 
-Reference it in text:
+Column format examples:
+
+- `{ll}` means two left-aligned columns.
+- `{lc}` means first column left, second column center.
+- `{lcr}` means left, center, right.
+
+Reference the table in text:
 
 ```tex
 Table~\ref{tab:example} summarizes the results.
@@ -281,7 +362,7 @@ Table~\ref{tab:example} summarizes the results.
 Inline equation:
 
 ```tex
-The accuracy is calculated as $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$.
+Accuracy is calculated as $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$.
 ```
 
 Displayed equation:
@@ -292,7 +373,23 @@ Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 \end{equation}
 ```
 
-### Citations
+Equation with label:
+
+```tex
+\begin{equation}
+F1 = \frac{2 \times \mathrm{Precision} \times \mathrm{Recall}}
+{\mathrm{Precision} + \mathrm{Recall}}
+\label{eq:f1-score}
+\end{equation}
+```
+
+Reference the equation:
+
+```tex
+Equation~\ref{eq:f1-score} shows the F1-score formula.
+```
+
+### Citations And References
 
 Add a reference in `references.bib`:
 
@@ -311,7 +408,13 @@ Cite it in a chapter:
 Machine learning has been widely used for intrusion detection \cite{smith2024ids}.
 ```
 
-Then run:
+For multiple citations:
+
+```tex
+Several studies explored IDS using deep learning \cite{smith2024ids,doe2023cnn}.
+```
+
+Then build again:
 
 ```sh
 make
@@ -319,13 +422,18 @@ make
 
 ### Comments
 
-Comments are ignored by LaTeX:
+Anything after `%` is ignored by LaTeX:
 
 ```tex
 % This line will not appear in the PDF.
+This line will appear in the PDF.
 ```
 
-Use comments to leave notes for yourself.
+Use comments to keep notes:
+
+```tex
+% TODO: Add more discussion about preprocessing.
+```
 
 ## Useful Commands
 
