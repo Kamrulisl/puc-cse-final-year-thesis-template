@@ -21,7 +21,7 @@ Or:
 bash build.sh
 ```
 
-The generated PDF will be created in this same folder:
+The generated PDF will be created beside `main.tex`:
 
 ```text
 main.pdf
@@ -46,3 +46,4 @@ Sans Bangla:
 - Engine: `lualatex`
 - Bangla fonts: `Noto Serif Bengali`, `Noto Sans Bengali`
 - Local cache is stored in `.texlive-cache/`
+- Build helper files are stored in `build/`

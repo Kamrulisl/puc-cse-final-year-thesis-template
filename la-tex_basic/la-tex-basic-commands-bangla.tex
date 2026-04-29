@@ -11,6 +11,7 @@
 \setmainfont{Latin Modern Roman}
 \setmonofont{FreeSerif}
 \newfontfamily\banglafont[
+  Script=Bengali,
   Renderer=HarfBuzz
 ]{FreeSerif}
 \newfontfamily\banglasans[
@@ -25,6 +26,11 @@
 \newcommand{\bn}[1]{{\normalfont\banglafont #1}}
 \newcommand{\bnsf}[1]{{\normalfont\banglasans #1}}
 \newcommand{\code}[1]{\texttt{#1}}
+
+\pdfstringdefDisableCommands{%
+  \def\bn#1{#1}%
+  \def\bnsf#1{#1}%
+}
 
 \hypersetup{
   colorlinks=true,
