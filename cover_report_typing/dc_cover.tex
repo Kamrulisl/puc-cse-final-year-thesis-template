@@ -1,0 +1,137 @@
+\documentclass[12pt,a4paper]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{xparse}
+\usepackage{tabularx}
+\usepackage{array}
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% Line spacing
+\onehalfspacing
+
+% Chapter and section formatting
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\centering}{\chaptertitlename\ \thechapter}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{10pt}
+
+% Header and footer
+\pagestyle{empty}
+
+\definecolor{covernavy}{gray}{0.10}
+\definecolor{coverteal}{gray}{0.20}
+\definecolor{covergold}{gray}{0.25}
+\definecolor{coverline}{gray}{0.55}
+\definecolor{covertext}{gray}{0.08}
+\definecolor{covermuted}{gray}{0.35}
+\definecolor{coverpanel}{gray}{0.97}
+
+\newcommand{\coverlabel}[1]{{\color{covermuted}\bfseries #1}}
+\newcommand{\covervalue}[1]{{\color{covertext}#1}}
+\newcommand{\coverdetailrow}[2]{\coverlabel{#1} & \covervalue{#2}\\[0.18cm]}
+\newcommand{\coversectiontitle}[1]{%
+    {\large\bfseries\color{covernavy} #1}\par
+    \vspace{0.08cm}
+    {\color{covergold}\rule{\linewidth}{0.8pt}}\par
+    \vspace{0.28cm}
+}
+\newcommand{\coverinforow}[2]{#1 & : & #2\\[0.16cm]}
+\newcommand{\coversession}{Fall 2025}
+\newcommand{\coveracademicyear}{2025--2026}
+\newcommand{\coversubmissiondate}{25 April 2026}
+
+% Command for each student's title page
+\NewDocumentCommand{\studentcover}{m m m}{
+\begin{titlepage}
+    \centering
+    \color{covertext}
+    \setstretch{1.03}
+    \vspace*{0.18cm}
+    
+    % University Logo
+    {\LARGE Premier University, Chittagong\par}
+    \vspace{0.26cm}
+    \fbox{\Large Department of Computer Science and Engineering}\par
+    \vspace{0.55cm}
+    \includegraphics[width=0.30\textwidth]{logo/puc_logo.png}\\[0.38cm]
+    
+    \fbox{\huge Assignment}\par
+    \vspace{0.46cm}
+    
+    \begin{flushleft}
+        \renewcommand{\arraystretch}{1.05}
+        {\large
+        \begin{tabularx}{\linewidth}{@{}p{0.31\linewidth}p{0.03\linewidth}X@{}}
+            \coverinforow{Course Name}{Data Communication}
+            \coverinforow{Course Code}{CSE 4427}
+            \coverinforow{Name of Assignment}{Design and Analysis of a Baseband Digital Communication System Using 5B/6B Block Coding and NRZ-I Line Coding}
+            \coverinforow{Academic Year}{\coveracademicyear}
+            \coverinforow{Date of Submission}{\coversubmissiondate}
+        \end{tabularx}
+        }
+    \end{flushleft}
+    
+    \vspace{0.65cm}
+    \rule{\linewidth}{0.4pt}
+    \vspace{0.65cm}
+    
+    \noindent
+    \setlength{\fboxrule}{0.8pt}
+    \setlength{\fboxsep}{10pt}
+    \fbox{%
+    \begin{minipage}[t][4.9cm][t]{0.36\linewidth}
+        \raggedright
+        {\Large\bfseries Submitted To :\par}
+        \vspace{0.3cm}
+        {\bfseries Prof. Dr. Md Fazlul Kader\par}
+        \vspace{0.50cm}
+        {\large Adjunct Faculty\par}
+        \vspace{0.05cm}
+        {\large Department of Computer Science and Engineering\par}
+    \end{minipage}}
+    \hfill
+    \fbox{%
+    \begin{minipage}[t][4.9cm][t]{0.48\linewidth}
+        \raggedright
+        {\Large\bfseries Submitted By :\par}
+        \vspace{0.14cm}
+        \renewcommand{\arraystretch}{1.08}
+        \setlength{\tabcolsep}{2pt}
+        {\large
+        \begin{tabularx}{\linewidth}{@{}p{0.21\linewidth}p{0.03\linewidth}X@{}}
+            \coverinforow{Name}{#1}
+            \coverinforow{ID}{#2}
+            \coverinforow{Batch}{#3}
+            \coverinforow{Session}{\coversession}
+            \coverinforow{Section}{A}
+        \end{tabularx}
+        }
+    \end{minipage}}
+\end{titlepage}
+}
+
+\begin{document}
+
+\studentcover{Md. Kamrul Islam}{0222310005101039}{43}
+
+
+\end{document}

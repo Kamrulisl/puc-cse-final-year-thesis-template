@@ -1,0 +1,236 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\onehalfspacing
+\setlength{\parskip}{4pt}
+\setlist[itemize]{leftmargin=18pt}
+\setlist[enumerate]{leftmargin=22pt}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\centering}{\chaptertitlename\ \thechapter}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-64pt}{10pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{28pt}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\coverinforow}[2]{#1 & : & #2\\[0.24cm]}
+
+% Project metadata. Edit these values first.
+\newcommand{\CourseTitle}{Course Title}
+\newcommand{\CourseCode}{CSE XXXX}
+\newcommand{\ProjectTitle}{Project Title}
+\newcommand{\AcademicYear}{2025--2026}
+\newcommand{\SubmissionDate}{Month Year}
+\newcommand{\SessionName}{Fall 2025}
+\newcommand{\TeacherName}{Teacher Name}
+\newcommand{\TeacherDesignation}{Lecturer}
+\newcommand{\StudentBatch}{Batch, Semester, Section}
+\newcommand{\StudentList}{%
+    Student Name One & Student ID\\
+    Student Name Two & Student ID\\
+}
+
+\begin{document}
+
+\newgeometry{top=0.75in,bottom=0.85in,left=0.85in,right=0.85in}
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{singlespace}
+    \centering
+    \setlength{\fboxrule}{1.1pt}
+    \setlength{\fboxsep}{7pt}
+    \vspace*{0.10cm}
+
+    {\LARGE Premier University, Chittagong\par}
+    \vspace{0.18cm}
+    \fbox{\Large Department of Computer Science and Engineering}\par
+    \vspace{0.42cm}
+    \includegraphics[width=0.31\textwidth]{logo/puc_logo.png}\\[0.30cm]
+
+    \fbox{\huge\bfseries Final Project Report}\par
+    \vspace{0.38cm}
+
+    \begin{flushleft}
+        \renewcommand{\arraystretch}{1.20}
+        {\large
+        \begin{tabularx}{\linewidth}{@{}p{0.29\linewidth}p{0.03\linewidth}X@{}}
+            \coverinforow{Course Title}{\CourseTitle}
+            \coverinforow{Course Code}{\CourseCode}
+            \coverinforow{Project Title}{\ProjectTitle}
+            \coverinforow{Academic Year}{\AcademicYear}
+            \coverinforow{Date of Submission}{\SubmissionDate}
+            \coverinforow{Session}{\SessionName}
+        \end{tabularx}
+        }
+    \end{flushleft}
+
+    \vspace{0.32cm}
+    \rule{\linewidth}{0.4pt}
+    \vspace{0.32cm}
+
+    \noindent
+    \fbox{%
+    \begin{minipage}[t][4.4cm][t]{0.41\linewidth}
+        \raggedright
+        {\Large\bfseries Submitted To :\par}
+        \vspace{0.30cm}
+        {\Large\bfseries \TeacherName\par}
+        \vspace{0.36cm}
+        {\large \TeacherDesignation\par}
+        {\large Department of Computer Science and Engineering\par}
+        {\large Premier University, Chittagong}
+    \end{minipage}}
+    \hfill
+    \fbox{%
+    \begin{minipage}[t][4.4cm][t]{0.51\linewidth}
+        \raggedright
+        {\Large\bfseries Submitted By :\par}
+        \vspace{0.36cm}
+        {\large
+        \renewcommand{\arraystretch}{1.16}
+        \begin{tabularx}{\linewidth}{@{}Xr@{}}
+            \StudentList
+        \end{tabularx}
+        \vspace{0.2cm}
+        \StudentBatch\par
+        }
+    \end{minipage}}
+    \end{singlespace}
+\end{titlepage}
+\restoregeometry
+
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\cleardoublepage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+\section{Introduction}
+Write a short overview of the project, the problem it solves, and the target users.
+
+\section{Motivation}
+Explain why the project is needed and what practical problems motivated the work.
+
+\section{Application}
+Describe where and how the system can be used.
+
+\section{Objectives}
+\begin{enumerate}
+    \item Write the first objective.
+    \item Write the second objective.
+    \item Write the third objective.
+\end{enumerate}
+
+\chapter{Software Requirements Specification}
+\section{Purpose}
+Describe the purpose of the system and this requirements section.
+
+\section{Scope}
+Define the project scope, included modules, and excluded features.
+
+\section{Functional Requirements}
+\begin{itemize}
+    \item Requirement 1.
+    \item Requirement 2.
+    \item Requirement 3.
+\end{itemize}
+
+\section{Non-functional Requirements}
+\begin{itemize}
+    \item Performance requirement.
+    \item Security requirement.
+    \item Usability requirement.
+    \item Maintainability requirement.
+\end{itemize}
+
+\chapter{Methodology}
+\section{System Design}
+Describe the design approach. Add diagrams with \verb|\includegraphics| if needed.
+
+\section{Development Method}
+Describe the tools, technologies, and process used to develop the project.
+
+\chapter{System Implementation Overview}
+\section{Features of the System}
+\begin{longtable}{p{4cm}p{10cm}}
+\toprule
+\textbf{Module} & \textbf{Capability} \\
+\midrule
+Module Name & Write what this module does. \\
+\bottomrule
+\end{longtable}
+
+\section{Key User Interface}
+Describe the important pages, screens, dashboards, or forms.
+
+\chapter{Risk Analysis}
+\section{Assessing the Risk of Project}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|p{3.2cm}|C{2.2cm}|C{2cm}|Y|}
+\hline
+\rowcolor{gray!15}
+\textbf{Risk} & \textbf{Probability} & \textbf{Impact} & \textbf{Assessment} \\
+\hline
+Risk name & Medium & High & Explain the risk. \\
+\hline
+\end{tabularx}
+\caption{Project risk assessment}
+\end{table}
+
+\section{RMMM Plan of the Project}
+Write the mitigation, monitoring, and management plan.
+
+\chapter{Social and Security Impact}
+\section{Social Impact}
+Explain the social effect of the project.
+
+\section{Security and Reliability}
+Explain the security and reliability considerations.
+
+\chapter{Conclusion}
+Summarize the project outcome and future improvement areas.
+
+\chapter{Appendix}
+\section*{Software Development Timeline}
+\phantomsection
+\addcontentsline{toc}{section}{Software Development Timeline}
+Add timeline, screenshots, source-code references, or contribution tables here.
+
+\end{document}

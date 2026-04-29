@@ -1,0 +1,105 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[top=0.75in,bottom=0.85in,left=0.85in,right=0.85in]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{tabularx}
+\usepackage{xparse}
+
+\pagestyle{empty}
+\onehalfspacing
+
+% Edit these values for a new cover page.
+\newcommand{\UniversityName}{Premier University, Chittagong}
+\newcommand{\DepartmentName}{Department of Computer Science and Engineering}
+\newcommand{\DocumentType}{Final Project Report}
+\newcommand{\CourseTitle}{Software Engineering Laboratory}
+\newcommand{\CourseCode}{CSE 3234}
+\newcommand{\ProjectTitle}{Hostel Management System}
+\newcommand{\AcademicYear}{2025--2026}
+\newcommand{\SubmissionDate}{April 2026}
+\newcommand{\SessionName}{Fall 2025}
+\newcommand{\TeacherName}{Estiak Ahamed Sazid}
+\newcommand{\TeacherDesignation}{Lecturer}
+\newcommand{\StudentBatch}{43th Batch, 6th Semester, B1 Section}
+
+\newcommand{\coverinforow}[2]{#1 & : & #2\\[0.24cm]}
+
+% Add or remove rows inside this command for group members.
+\newcommand{\StudentList}{%
+  Student Name One & 0000000000000000\\
+  Student Name Two & 0000000000000000\\
+  Student Name Three & 0000000000000000\\
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{singlespace}
+    \centering
+    \setlength{\fboxrule}{1.1pt}
+    \setlength{\fboxsep}{7pt}
+    \vspace*{0.10cm}
+
+    {\LARGE \UniversityName\par}
+    \vspace{0.18cm}
+    \fbox{\Large \DepartmentName}\par
+    \vspace{0.42cm}
+    \includegraphics[width=0.31\textwidth]{logo/puc_logo.png}\\[0.30cm]
+
+    \fbox{\huge\bfseries \DocumentType}\par
+    \vspace{0.38cm}
+
+    \begin{flushleft}
+        \renewcommand{\arraystretch}{1.20}
+        {\large
+        \begin{tabularx}{\linewidth}{@{}p{0.29\linewidth}p{0.03\linewidth}X@{}}
+            \coverinforow{Course Title}{\CourseTitle}
+            \coverinforow{Course Code}{\CourseCode}
+            \coverinforow{Project Title}{\ProjectTitle}
+            \coverinforow{Academic Year}{\AcademicYear}
+            \coverinforow{Date of Submission}{\SubmissionDate}
+            \coverinforow{Session}{\SessionName}
+        \end{tabularx}
+        }
+    \end{flushleft}
+
+    \vspace{0.32cm}
+    \rule{\linewidth}{0.4pt}
+    \vspace{0.32cm}
+
+    \noindent
+    \fbox{%
+    \begin{minipage}[t][4.4cm][t]{0.41\linewidth}
+        \raggedright
+        {\Large\bfseries Submitted To :\par}
+        \vspace{0.30cm}
+        {\Large\bfseries \TeacherName\par}
+        \vspace{0.36cm}
+        {\large \TeacherDesignation\par}
+        {\large \DepartmentName\par}
+        {\large \UniversityName}
+    \end{minipage}}
+    \hfill
+    \fbox{%
+    \begin{minipage}[t][4.4cm][t]{0.51\linewidth}
+        \raggedright
+        {\Large\bfseries Submitted By :\par}
+        \vspace{0.36cm}
+        {\large
+        \renewcommand{\arraystretch}{1.16}
+        \begin{tabularx}{\linewidth}{@{}Xr@{}}
+            \StudentList
+        \end{tabularx}
+        \vspace{0.2cm}
+        \StudentBatch\par
+        }
+    \end{minipage}}
+    \end{singlespace}
+\end{titlepage}
+
+\end{document}

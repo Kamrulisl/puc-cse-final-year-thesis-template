@@ -6,14 +6,23 @@
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{booktabs}
+\usepackage{listings}
+\usepackage{float}
 
 \defaultfontfeatures{Ligatures=TeX,Renderer=HarfBuzz}
-\setmainfont{Latin Modern Roman}
-\setmonofont{FreeSerif}
+\directlua{
+  luaotfload.add_fallback("banglafallback", {
+    "Noto Serif Bengali:mode=harf;script=bng2;language=dflt"
+  })
+  luaotfload.add_fallback("banglamonofallback", {
+    "Noto Sans Bengali:mode=harf;script=bng2;language=dflt"
+  })
+}
+\setmainfont[RawFeature={fallback=banglafallback}]{Latin Modern Roman}
+\setmonofont[RawFeature={fallback=banglamonofallback}]{Latin Modern Mono}
 \newfontfamily\banglafont[
-  Script=Bengali,
-  Renderer=HarfBuzz
-]{FreeSerif}
+  RawFeature={fallback=banglafallback}
+]{Latin Modern Roman}
 \newfontfamily\banglasans[
   Script=Bengali,
   Renderer=HarfBuzz
@@ -48,11 +57,56 @@
 \tableofcontents
 \newpage
 
+% ---------------------------------------------
+% SECTION 1 (NEW): Document Structure
+% ---------------------------------------------
+\section{\bn{Document Structure (Preamble)}}
+
+\bn{একটি LaTeX file সাধারণত দুই ভাগে ভাগ করা হয়:}
+
+\begin{enumerate}
+  \item \bn{\textbf{Preamble} --- `\textbackslash documentclass` থেকে `\textbackslash begin\{document\}` পর্যন্ত। এখানে package load করা হয় এবং global setting দেওয়া হয়।}
+  \item \bn{\textbf{Body} --- `\textbackslash begin\{document\}` থেকে `\textbackslash end\{document\}` পর্যন্ত। এখানে মূল লেখা থাকে।}
+\end{enumerate}
+
+\begin{verbatim}
+\documentclass[12pt,a4paper]{article}  % document type
+
+% -- Packages --
+\usepackage[margin=1in]{geometry}      % page margin
+\usepackage{graphicx}                  % image support
+\usepackage{amsmath}                   % math support
+\usepackage{xcolor}                    % color support
+\usepackage{hyperref}                  % hyperlink support
+\usepackage{booktabs}                  % nice table lines
+\usepackage{float}                     % figure placement [H]
+
+% -- Title Info --
+\title{My Document}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle           % title print করে
+\tableofcontents     % table of contents তৈরি করে
+\newpage             % নতুন পেজে যায়
+
+% এখানে মূল লেখা লিখুন ...
+
+\end{document}
+\end{verbatim}
+
+\bn{`\textbackslash documentclass` option-এ `12pt` মানে font size 12, `a4paper` মানে A4 size page।}
+
+% ---------------------------------------------
+% SECTION 2: How LaTeX works
+% ---------------------------------------------
 \section{\bn{LaTeX কীভাবে কাজ করে}}
 
 \bn{LaTeX হলো একটি document preparation system. এখানে Microsoft Word-এর মতো
 সরাসরি ডিজাইন না করে আপনি source code লিখেন। তারপর LaTeX সেই code compile করে
-একটি সুন্দর PDF বানায়।}
+একটি সুন্দর PDF বানায়।}
 
 \begin{center}
 \bn{.tex file + image + bibliography} $\rightarrow$ \bn{compile} $\rightarrow$ \bn{PDF}
@@ -62,15 +116,18 @@
 
 \begin{enumerate}
   \item \bn{একটি `.tex` file-এ লেখা লিখুন।}
-  \item \bn{প্রয়োজন হলে image `figures/` folder-এ রাখুন।}
+  \item \bn{প্রয়োজন হলে image `figures/` folder-এ রাখুন।}
   \item \bn{reference থাকলে `references.bib` file-এ দিন।}
   \item \bn{compile করুন।}
   \item \bn{শেষে PDF দেখুন।}
 \end{enumerate}
 
+% ---------------------------------------------
+% SECTION 3: Command Syntax
+% ---------------------------------------------
 \section{\bn{Command Syntax}}
 
-\bn{LaTeX command সাধারণত backslash দিয়ে শুরু হয়।}
+\bn{LaTeX command সাধারণত backslash দিয়ে শুরু হয়।}
 
 \begin{verbatim}
 \command{required value}
@@ -87,10 +144,13 @@
 \bn{এখানে curly braces `{}`-এর ভিতরের অংশ mandatory বা required value।
 Square brackets `[]`-এর ভিতরের অংশ optional setting।}
 
+% ---------------------------------------------
+% SECTION 4: Environment Syntax
+% ---------------------------------------------
 \section{\bn{Environment Syntax}}
 
-\bn{অনেক LaTeX structure environment দিয়ে লেখা হয়। Environment-এর শুরুতে
-`\textbackslash begin\{...\}` এবং শেষে `\textbackslash end\{...\}` দিতে হয়।}
+\bn{অনেক LaTeX structure environment দিয়ে লেখা হয়। Environment-এর শুরুতে
+`\textbackslash begin\{...\}` এবং শেষে `\textbackslash end\{...\}` দিতে হয়।}
 
 \begin{verbatim}
 \begin{center}
@@ -100,10 +160,13 @@ Square brackets `[]`-এর ভিতরের অংশ optional setting।}
 
 \bn{যে environment শুরু করবেন, একই environment শেষ করতেই হবে।}
 
+% ---------------------------------------------
+% SECTION 5: Special Characters
+% ---------------------------------------------
 \section{\bn{Special Character}}
 
 \bn{কিছু character LaTeX-এ special meaning রাখে। এগুলো normal text হিসেবে
-লিখতে চাইলে escape করতে হয়।}
+লিখতে চাইলে escape করতে হয়।}
 
 \begin{center}
 \begin{tabular}{ll}
@@ -129,9 +192,12 @@ Computer Science \& Engineering
 student\_id
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 6: Heading / Section
+% ---------------------------------------------
 \section{\bn{Heading বা Section}}
 
-\bn{Document structure তৈরি করতে heading ব্যবহার করা হয়।}
+\bn{Document structure তৈরি করতে heading ব্যবহার করা হয়।}
 
 \begin{verbatim}
 \chapter{Introduction}
@@ -141,11 +207,14 @@ student\_id
 \end{verbatim}
 
 \bn{Thesis template-এ chapter সাধারণত `main.tex` file-এ থাকে। তাই chapter file-এর
-ভিতরে সাধারণত `\textbackslash section\{...\}` দিয়ে শুরু করলেই যথেষ্ট।}
+ভিতরে সাধারণত `\textbackslash section\{...\}` দিয়ে শুরু করলেই যথেষ্ট।}
 
+% ---------------------------------------------
+% SECTION 7: Paragraph and Line Break
+% ---------------------------------------------
 \section{\bn{Paragraph এবং Line Break}}
 
-\bn{সাধারণ লেখা সরাসরি লিখলেই হয়।}
+\bn{সাধারণ লেখা সরাসরি লিখলেই হয়।}
 
 \begin{verbatim}
 Intrusion detection is an important task in network security.
@@ -167,6 +236,9 @@ First line\\
 Second line
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 8: Text Formatting
+% ---------------------------------------------
 \section{\bn{Text Formatting}}
 
 \begin{verbatim}
@@ -182,6 +254,158 @@ Second line
 \textbf{CNN} is used for feature extraction.
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 9 (NEW): Font Size
+% ---------------------------------------------
+\section{\bn{Font Size}}
+
+\bn{LaTeX-এ font size বদলাতে নিচের command গুলো ব্যবহার করা হয়।
+এগুলো সবচেয়ে ছোট থেকে সবচেয়ে বড় ক্রমে সাজানো:}
+
+\begin{verbatim}
+{\tiny        এটি সবচেয়ে ছোট}
+{\scriptsize  এটি খুব ছোট}
+{\footnotesize এটি footnote size}
+{\small       এটি একটু ছোট}
+{\normalsize  এটি default size}
+{\large       এটি একটু বড়}
+{\Large       এটি আরও বড়}
+{\LARGE       এটি বেশ বড়}
+{\huge        এটি অনেক বড়}
+{\Huge        এটি সবচেয়ে বড়}
+\end{verbatim}
+
+\bn{Curly brace দিয়ে আবদ্ধ করলে শুধু সেই অংশে size প্রযোজ্য হয়।}
+
+\begin{verbatim}
+Normal text and {\Large this part is larger} then back to normal.
+\end{verbatim}
+
+% ---------------------------------------------
+% SECTION 10 (NEW): Text Color
+% ---------------------------------------------
+\section{\bn{Text Color}}
+
+\bn{Color ব্যবহার করতে preamble-এ `xcolor` package লাগবে:}
+
+\begin{verbatim}
+\usepackage{xcolor}
+\end{verbatim}
+
+\bn{তারপর যেকোনো জায়গায়:}
+
+\begin{verbatim}
+\textcolor{red}{This text is red.}
+\textcolor{blue}{This text is blue.}
+\textcolor{green}{This text is green.}
+\end{verbatim}
+
+\bn{Custom color define করতে:}
+
+\begin{verbatim}
+\definecolor{myblue}{RGB}{0, 102, 204}
+\textcolor{myblue}{This uses a custom color.}
+\end{verbatim}
+
+\bn{Common color নামগুলো: \texttt{red, blue, green, black, white, gray,
+orange, violet, cyan, magenta, yellow, brown}.}
+
+% ---------------------------------------------
+% SECTION 11 (NEW): Spacing
+% ---------------------------------------------
+\section{\bn{Spacing}}
+
+\bn{Vertical এবং horizontal space control করা যায়।}
+
+\bn{\textbf{Vertical space} (উপর-নিচ ফাঁক):}
+
+\begin{verbatim}
+First paragraph.
+
+\vspace{1cm}   % 1 centimeter নিচে যাবে
+
+Second paragraph.
+\end{verbatim}
+
+\bn{\textbf{Horizontal space} (বাম-ডান ফাঁক):}
+
+\begin{verbatim}
+Word one \hspace{2cm} Word two
+\end{verbatim}
+
+\bn{\textbf{Negative space} দিয়ে কাছে আনা যায়:}
+
+\begin{verbatim}
+\vspace{-0.5cm}
+\hspace{-1cm}
+\end{verbatim}
+
+\bn{Unit হিসেবে `cm`, `mm`, `pt`, `em`, `ex` ব্যবহার করা যায়।
+`em` হলো current font-এর width-এর সমান।}
+
+\bn{\textbf{Paragraph indent বন্ধ করতে:}}
+
+\begin{verbatim}
+\noindent This paragraph has no indent.
+\end{verbatim}
+
+% ---------------------------------------------
+% SECTION 12 (NEW): Footnote
+% ---------------------------------------------
+\section{\bn{Footnote}}
+
+\bn{Footnote হলো page-এর নিচে ছোট টীকা। এটি automatically number হয়।}
+
+\begin{verbatim}
+Machine learning\footnote{A subset of artificial intelligence.}
+is used here.
+\end{verbatim}
+
+\bn{এটি compile হলে ``Machine learning'' শব্দের পরে একটি superscript number
+দেখাবে এবং page-এর নিচে সেই note টি print হবে।}
+
+% ---------------------------------------------
+% SECTION 13 (NEW): Hyperlink
+% ---------------------------------------------
+\section{\bn{Hyperlink}}
+
+\bn{Link ব্যবহার করতে preamble-এ `hyperref` package লাগবে:}
+
+\begin{verbatim}
+\usepackage{hyperref}
+\end{verbatim}
+
+\bn{\textbf{URL সরাসরি দেখাতে:}}
+
+\begin{verbatim}
+\url{https://www.example.com}
+\end{verbatim}
+
+\bn{\textbf{Custom text দিয়ে link বানাতে:}}
+
+\begin{verbatim}
+\href{https://www.example.com}{Visit Example Website}
+\end{verbatim}
+
+\bn{\textbf{Email link:}}
+
+\begin{verbatim}
+\href{mailto:you@example.com}{Send Email}
+\end{verbatim}
+
+\bn{Link-এর color পরিবর্তন করতে preamble-এ:}
+
+\begin{verbatim}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,   % internal link color
+  urlcolor=blue      % URL color
+}
+\end{verbatim}
+
+% ---------------------------------------------
+% SECTION 14: List
+% ---------------------------------------------
 \section{\bn{List}}
 
 \bn{Bullet list:}
@@ -203,6 +427,9 @@ Second line
 \end{enumerate}
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 15: Figure
+% ---------------------------------------------
 \section{\bn{Figure Add করা}}
 
 \bn{Image আগে project-এর `figures/` folder-এ রাখুন। তারপর:}
@@ -210,7 +437,7 @@ Second line
 \begin{verbatim}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{figures/resultsfigures/example.png}
+  \includegraphics[width=0.8\textwidth]{figures/example.png}
   \caption{Example result}
   \label{fig:example-result}
 \end{figure}
@@ -222,9 +449,12 @@ Second line
 Figure~\ref{fig:example-result} shows the result.
 \end{verbatim}
 
-\bn{`\textbackslash label\{...\}` হলো reference key. একই key দিয়ে
-`\textbackslash ref\{...\}` করলে figure number পাওয়া যায়।}
+\bn{`\textbackslash label\{...\}` হলো reference key. একই key দিয়ে
+`\textbackslash ref\{...\}` করলে figure number পাওয়া যায়।}
 
+% ---------------------------------------------
+% SECTION 16: Table
+% ---------------------------------------------
 \section{\bn{Table Add করা}}
 
 \begin{verbatim}
@@ -251,6 +481,9 @@ Figure~\ref{fig:example-result} shows the result.
   \item \code{\{lcr\}} \bn{মানে left, center, right}
 \end{itemize}
 
+% ---------------------------------------------
+% SECTION 17: Equation
+% ---------------------------------------------
 \section{\bn{Equation}}
 
 \bn{Inline equation:}
@@ -277,9 +510,178 @@ F1 = \frac{2 \times \mathrm{Precision} \times \mathrm{Recall}}
 \end{equation}
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 18 (NEW): Math Symbols
+% ---------------------------------------------
+\section{\bn{Math Symbols}}
+
+\bn{Preamble-এ `amsmath` package add করুন:}
+
+\begin{verbatim}
+\usepackage{amsmath}
+\end{verbatim}
+
+\bn{\textbf{Greek letters} (সব math mode `\$...\$`-এর ভিতরে):}
+
+\begin{verbatim}
+$\alpha$   $\beta$   $\gamma$   $\delta$
+$\theta$   $\lambda$ $\mu$      $\sigma$
+$\pi$      $\omega$  $\Sigma$   $\Delta$
+\end{verbatim}
+
+\bn{\textbf{Common math operators:}}
+
+\begin{verbatim}
+$\sum_{i=1}^{n} x_i$        % summation
+$\prod_{i=1}^{n} x_i$       % product
+$\int_0^\infty f(x) dx$     % integral
+$\lim_{x \to \infty} f(x)$  % limit
+$\sqrt{x}$                  % square root
+$\sqrt[3]{x}$               % cube root
+$x^{2}$                     % superscript
+$x_{i}$                     % subscript
+\end{verbatim}
+
+\bn{\textbf{Comparison এবং logic:}}
+
+\begin{verbatim}
+$\leq$   % less than or equal
+$\geq$   % greater than or equal
+$\neq$   % not equal
+$\approx$ % approximately equal
+$\in$    % element of
+$\notin$ % not element of
+$\cup$   % union
+$\cap$   % intersection
+$\infty$ % infinity
+\end{verbatim}
+
+\bn{\textbf{Matrix:}}
+
+\begin{verbatim}
+\begin{equation}
+A = \begin{bmatrix}
+  1 & 2 \\
+  3 & 4
+\end{bmatrix}
+\end{equation}
+\end{verbatim}
+
+% ---------------------------------------------
+% SECTION 19 (NEW): Code Listing
+% ---------------------------------------------
+\section{\bn{Code Listing}}
+
+\bn{Code সুন্দরভাবে দেখাতে `listings` package ব্যবহার করা হয়।
+Preamble-এ add করুন:}
+
+\begin{verbatim}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  frame=single
+}
+\end{verbatim}
+
+\bn{Code block লিখতে:}
+
+\begin{verbatim}
+\begin{lstlisting}[language=Python, caption={My Python Code}]
+def train_model(X, y):
+    model = RandomForest()
+    model.fit(X, y)
+    return model
+\end{lstlisting}
+\end{verbatim}
+
+\bn{Inline code snippet দিতে:}
+
+\begin{verbatim}
+Use \lstinline{print("Hello")} to output text.
+\end{verbatim}
+
+\bn{Supported language-এর মধ্যে আছে: \texttt{Python, C, C++, Java, R, Matlab, SQL, bash} ইত্যাদি।}
+
+% ---------------------------------------------
+% SECTION 20 (NEW): Cross-referencing
+% ---------------------------------------------
+\section{\bn{Cross-referencing}}
+
+\bn{Document-এর যেকোনো জায়গায় label দিয়ে সেটি refer করা যায়।
+Figure, Table, Equation, Section সবকিছুতেই এটি কাজ করে।}
+
+\begin{verbatim}
+% Label দেওয়া
+\section{Introduction}
+\label{sec:intro}
+
+\begin{figure}[H]
+  ...
+  \label{fig:result}
+\end{figure}
+
+\begin{table}[H]
+  ...
+  \label{tab:data}
+\end{table}
+
+\begin{equation}
+  y = mx + c
+  \label{eq:linear}
+\end{equation}
+\end{verbatim}
+
+\bn{Refer করার command:}
+
+\begin{verbatim}
+See Section~\ref{sec:intro} for details.
+As shown in Figure~\ref{fig:result}, the model performs well.
+Table~\ref{tab:data} lists the dataset statistics.
+Equation~\ref{eq:linear} represents the linear model.
+\end{verbatim}
+
+\bn{`\textasciitilde` দিয়ে non-breaking space দেওয়া হয় যাতে number
+পরের লাইনে চলে না যায়।}
+
+\bn{Page number reference করতে:}
+
+\begin{verbatim}
+Refer to page~\pageref{fig:result}.
+\end{verbatim}
+
+% ---------------------------------------------
+% SECTION 21 (NEW): Abstract
+% ---------------------------------------------
+\section{\bn{Abstract}}
+
+\bn{Thesis বা paper-এ abstract যোগ করতে:}
+
+\begin{verbatim}
+\begin{abstract}
+This thesis proposes a machine learning based approach
+for network intrusion detection. Experimental results show
+that the proposed method achieves 97\% accuracy on the
+benchmark dataset.
+\end{abstract}
+\end{verbatim}
+
+\bn{Abstract সাধারণত `\textbackslash maketitle`-এর পরেই দেওয়া হয়,
+`\textbackslash tableofcontents`-এর আগে।}
+
+% ---------------------------------------------
+% SECTION 22: Citation
+% ---------------------------------------------
 \section{\bn{Citation}}
 
-\bn{Reference আগে `references.bib` file-এ add করতে হয়।}
+\bn{Reference আগে `references.bib` file-এ add করতে হয়।}
 
 \begin{verbatim}
 @article{smith2024ids,
@@ -302,33 +704,108 @@ Machine learning has been widely used for IDS \cite{smith2024ids}.
 Several studies explored IDS using deep learning \cite{smith2024ids,doe2023cnn}.
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 23 (NEW): Bibliography Compile
+% ---------------------------------------------
+\section{\bn{Bibliography Compile করার পদ্ধতি}}
+
+\bn{Citation কাজ করাতে শুধু `\textbackslash cite\{\}` লিখলেই হবে না।
+`references.bib` file compile করতে হবে। সাধারণ compile sequence:}
+
+\begin{verbatim}
+lualatex main.tex
+bibtex main
+lualatex main.tex
+lualatex main.tex
+\end{verbatim}
+
+\bn{অথবা `make` ব্যবহার করলে যদি Makefile-এ এই sequence থাকে, তাহলে
+একটি command-এই হয়ে যাবে।}
+
+\bn{Document-এর শেষে bibliography print করতে:}
+
+\begin{verbatim}
+\bibliographystyle{plain}      % citation style
+\bibliography{references}      % references.bib file-এর নাম
+\end{verbatim}
+
+\bn{Common bibliography style:}
+
+\begin{itemize}
+  \item \code{plain} \bn{--- author alphabetical order, numbered}
+  \item \code{ieeetr} \bn{--- IEEE format, citation order অনুযায়ী}
+  \item \code{apalike} \bn{--- APA format}
+\end{itemize}
+
+% ---------------------------------------------
+% SECTION 24 (NEW): Input and Include
+% ---------------------------------------------
+\section{\bn{\textbackslash input এবং \textbackslash include}}
+
+\bn{বড় document (thesis, book) লেখার সময় সব কিছু একটি file-এ না লিখে
+আলাদা আলাদা file-এ ভাগ করে রাখা ভালো।}
+
+\bn{\textbf{\textbackslash input\{...\}} --- অন্য file-এর content সেখানে বসিয়ে দেয়:}
+
+\begin{verbatim}
+% main.tex-এ:
+\input{chapters/introduction}
+\input{chapters/methodology}
+\input{chapters/results}
+\end{verbatim}
+
+\bn{\textbf{\textbackslash include\{...\}} --- আলাদা page-এ শুরু করে (chapter-এর জন্য ভালো):}
+
+\begin{verbatim}
+\include{chapters/introduction}
+\include{chapters/methodology}
+\end{verbatim}
+
+\bn{পার্থক্য: `\textbackslash input` continuous text বসায়, কোনো page break দেয় না।
+`\textbackslash include` নতুন page-এ শুরু করে এবং selective compile করা যায়।}
+
+\bn{Selective compile (শুধু কিছু chapter দেখতে):}
+
+\begin{verbatim}
+\includeonly{chapters/introduction, chapters/results}
+\end{verbatim}
+
+% ---------------------------------------------
+% SECTION 25: Comment
+% ---------------------------------------------
 \section{\bn{Comment}}
 
-\bn{Percent sign `\%` দিয়ে comment লেখা হয়। Comment PDF-এ দেখাবে না।}
+\bn{Percent sign `\%` দিয়ে comment লেখা হয়। Comment PDF-এ দেখাবে না।}
 
 \begin{verbatim}
 % This line will not appear in the PDF.
 This line will appear in the PDF.
 \end{verbatim}
 
-\section{\bn{Bangla লেখার নিয়ম}}
+% ---------------------------------------------
+% SECTION 26: Bangla writing rules
+% ---------------------------------------------
+\section{\bn{Bangla লেখার নিয়ম}}
 
 \bn{এই file compile করতে LuaLaTeX ব্যবহার করুন। বাংলা লিখতে এই file-এ
-`\textbackslash bn\{...\}` command ব্যবহার করা হয়েছে।}
+`\textbackslash bn\{...\}` command ব্যবহার করা হয়েছে।}
 
 \begin{verbatim}
 \bn{এখানে বাংলা লিখুন}
 \end{verbatim}
 
-\bn{বাংলা + English একসাথে লেখা যায়:}
+\bn{বাংলা + English একসাথে লেখা যায়:}
 
 \begin{verbatim}
 \bn{এটি বাংলা লেখা।} This is English text.
 \end{verbatim}
 
+% ---------------------------------------------
+% SECTION 27: Compile Command
+% ---------------------------------------------
 \section{\bn{Compile Command}}
 
-\bn{এই file compile করতে `la-tex basic` folder-এ গিয়ে চালান:}
+\bn{এই file compile করতে `la-tex basic` folder-এ গিয়ে চালান:}
 
 \begin{verbatim}
 make
