@@ -1,6 +1,7 @@
-# Cover Page and Report Typing
+# Cover Page And Report Templates
 
-Reusable LaTeX files copied from `/home/saim/6th/dc/Assignment`.
+Reusable LaTeX cover-page and project-report templates. The report template and
+demo follow the style of `/home/saim/6th/dc/SEL/project_report.tex`.
 
 ## Files
 
@@ -11,6 +12,8 @@ Reusable LaTeX files copied from `/home/saim/6th/dc/Assignment`.
 - `se_cover.tex` - Software Engineering cover page
 - `ccs_cover.tex` - CCS cover page
 - `logo/puc_logo.png` - local logo dependency
+
+Generated PDFs are included beside the source files for quick viewing.
 
 ## Build
 

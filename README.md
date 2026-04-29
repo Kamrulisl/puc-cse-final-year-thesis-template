@@ -117,6 +117,41 @@ build/
 That means files like `.aux`, `.bbl`, `.blg`, `.log`, `.toc`, `.lof`, `.lot`,
 `.out`, `.fls`, and `.fdb_latexmk` should not clutter the root folder.
 
+## Extra LaTeX Guides And Templates
+
+This repository also includes two helper folders:
+
+- `la-tex_basic/` - Bangla-friendly LaTeX basic command guide.
+- `cover_report_typing/` - reusable cover-page and project-report templates.
+
+The generated PDFs are intentionally committed for quick viewing:
+
+- `la-tex_basic/la-tex-basic-commands-bangla.pdf`
+- `la-tex_basic/bangla/main.pdf`
+- `cover_report_typing/cover_template.pdf`
+- `cover_report_typing/report_template.pdf`
+- `cover_report_typing/project_report_demo.pdf`
+- `cover_report_typing/dc_cover.pdf`
+- `cover_report_typing/se_cover.pdf`
+- `cover_report_typing/ccs_cover.pdf`
+
+Build the Bangla LaTeX guide:
+
+```sh
+cd la-tex_basic
+make
+```
+
+Build the report and cover templates:
+
+```sh
+cd cover_report_typing
+make
+```
+
+In both folders, PDF files are created beside their `.tex` files. Temporary
+helper files stay inside `build/`.
+
 ## First Edit Checklist
 
 Start with these files in this order:
